@@ -22,8 +22,7 @@ PCCApi es accessible, potente y provee de contenido multimedia
 
 ## vulnerabilidades de seguridad
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-si descubres alguna vulnerabilidad en pccApi, por favor envía un email a [optt.itudes@gmail.com](mailto:optt.itudes@gmail.com)
+si descubres alguna vulnerabilidad en pccApi, por favor envía un email a [optt.itudes@gmail.com](mailto:optt.itudes@gmail.com). 
 
 ## License
 PCCAPI is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
