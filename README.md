@@ -11,7 +11,7 @@
 
 El pcc es un proyecto de api enfocado en la propagación del conocimiento relacionado al paisaje cultural cafetero ................
 
-- [Mas informacion en](https://paisajeculturalcafetero.org.co/).
+- [Mas informacion en](https://es.wikipedia.org/wiki/Paisaje_Cultural_Cafetero).
 
 PCCApi es accessible, potente y provee de contenido multimedia
 
