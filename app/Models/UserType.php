@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserType extends Model
 {
     use HasFactory;
-    public function userType(){
-      $this->belongsTo('App\Models\UserType');
+    public function users(){
+      return $this->hasMany('App\Models\User');
     }
 }

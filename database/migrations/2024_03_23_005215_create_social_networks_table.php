@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('social_network_infos', function (Blueprint $table) {
+        Schema::create('social_networks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string("link");
+
+            //relations with the user type 
+            $table->unsignedBigInteger('social_network_name_id')->nullable();
+            $table->foreign('social_network_name_id')->references('id')->on('social_network_names')->onDelete('set null');
+
         });
     }
 
@@ -26,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('social_network_infos');
+        Schema::dropIfExists('social_networks');
     }
 };

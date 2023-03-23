@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SocialNetworks extends Model
+class SocialNetworkName extends Model
 {
     use HasFactory;
- public function socialNetworkName(){
-      $this->belongsTo('App\Models\SocialNetworkName');
+    public function socialNetworks(){
+      return $this->hasMany('App\Models\SocialNetworks');
     }
 }

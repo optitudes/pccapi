@@ -14,6 +14,16 @@ class SocialNetworksSeeder extends Seeder
      */
     public function run()
     {
-        //
+      \DB::table('social_networks')->insert([
+        [
+          "link" => "google.com",
+          "social_network_name_id" => "1",
+        ],
+        [
+          "link" => "google.com2",
+          "social_network_name_id" => "2",
+        ],
+      ]);
+
     }
 }

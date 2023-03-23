@@ -42,6 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function userType(){
-      return $this->hasMany('App\Models\User');
+      $this->belongsTo('App\Models\UserType');
     }
+
 }
