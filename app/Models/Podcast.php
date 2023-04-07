@@ -5,7 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SocialNetworkInfo extends Model
+class Podcast extends Model
 {
     use HasFactory;
+
+    public function project(){
+        $this->belongsTo('App\Models\Project');
+      }
 }

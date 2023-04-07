@@ -14,6 +14,16 @@ class ParticipantsSeeder extends Seeder
      */
     public function run()
     {
-        //
+      //creacion de los  participantes
+      \DB::table('participants')->insert(
+        [
+          [
+            'participant_type_id' => 1, 
+          ],
+          [
+            'participant_type_id' => 2, 
+          ]
+        ]
+      ); 
     }
 }

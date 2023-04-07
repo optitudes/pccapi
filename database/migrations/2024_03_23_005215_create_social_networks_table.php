@@ -18,10 +18,13 @@ return new class extends Migration
             $table->timestamps();
             $table->string("link");
 
-            //relations with the user type 
+            //relations with the social network name
             $table->unsignedBigInteger('social_network_name_id')->nullable();
             $table->foreign('social_network_name_id')->references('id')->on('social_network_names')->onDelete('set null');
 
+            //relacion con el proyecto
+            $table->unsignedBigInteger('project_id')->unique();
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 

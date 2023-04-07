@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
         UserTypeSeeder::class,
         UserSeeder::class,
         SocialNetworkNameSeeder::class,
-        SocialNetworksSeeder::class
+        SocialNetworksSeeder::class,
+        ParticipantsTypeSeeder::class,
+        ParticipantsSeeder::class,
       ]);
     }
 }
