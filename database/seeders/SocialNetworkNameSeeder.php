@@ -21,6 +21,9 @@ class SocialNetworkNameSeeder extends Seeder
         [
           "name" => "instagram",
         ],
+        [
+          "name" => "twitter",
+        ],
       ]);
     }
 }

@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\GeneralController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,3 +23,13 @@ Route::post('auth/register', [AuthController::class, 'signup']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//rutas asociadas a las consultas generales que no necesitan autenticación
+Route::group([
+  'prefix' => 'general'
+], function ($router) {
+
+  Route::get('recentlyPosted', [GeneralController::class,'getRecentlyPosted']);
+
+});
+

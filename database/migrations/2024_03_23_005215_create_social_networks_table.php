@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('social_network_name_id')->references('id')->on('social_network_names')->onDelete('set null');
 
             //relacion con el proyecto
-            $table->unsignedBigInteger('project_id')->unique();
+            $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }

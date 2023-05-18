@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('link');
             //relacion con el proyecto
-            $table->unsignedBigInteger('project_id')->unique();
+            $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }

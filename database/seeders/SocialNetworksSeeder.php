@@ -18,10 +18,12 @@ class SocialNetworksSeeder extends Seeder
         [
           "link" => "google.com",
           "social_network_name_id" => "1",
+          'project_id' => 1,
         ],
         [
           "link" => "google.com2",
           "social_network_name_id" => "2",
+          "project_id" => 1
         ],
       ]);
 

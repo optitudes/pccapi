@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 class Project extends Model
 {
@@ -22,5 +24,15 @@ class Project extends Model
     }
     public function participants (){
       $this->belongsToMany('App\Models\Participants');
+    }
+
+    //Metodo que retorna el nombre, id y banner de los ultimos 6 elementos
+    public static function getLast($limit = 6){
+
+      return DB::table('projects')
+      ->orderBy('id', 'desc') // Ordenar en orden descendente para obtener los últimos elementos primero
+      ->take($limit) // Tomar los últimos seis elementos
+      ->select('name','id','banner')
+      ->get();
     }
 }
