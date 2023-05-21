@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\GeneralController;
+use App\Http\Controllers\API\ProjectController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,14 @@ Route::group([
 ], function ($router) {
 
   Route::get('recentlyPosted', [GeneralController::class,'getRecentlyPosted']);
+
+});
+//rutas asociadas a las consultas generales que no necesitan autenticación
+Route::group([
+  'prefix' => 'project'
+], function ($router) {
+
+  Route::get('recentlyPosted', [ProjectController::class,'getRecentlyPosted']);
 
 });
 
