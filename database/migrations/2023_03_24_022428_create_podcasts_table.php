@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->string('link');
+            $table->string('banner')->nullable();
+
             //relacion con el proyecto
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');

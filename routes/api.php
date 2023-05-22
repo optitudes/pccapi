@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\GeneralController;
 use App\Http\Controllers\API\ProjectController;
-
+use App\Http\Controllers\API\VideoController;
+use App\Http\Controllers\API\PictureController;
+use App\Http\Controllers\API\PodcastController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,7 @@ use App\Http\Controllers\API\ProjectController;
 |
 */
 Route::get('/', function (){
-  return "api funcionando papus";
+  return "api funcionando";
 });
 Route::post('auth/login', [AuthController::class, 'signin']);
 Route::post('auth/register', [AuthController::class, 'signup']);
@@ -26,7 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//rutas asociadas a las consultas generales que no necesitan autenticación
+//rutas asociadas a las consultas generales
 Route::group([
   'prefix' => 'general'
 ], function ($router) {
@@ -34,7 +36,7 @@ Route::group([
   Route::get('recentlyPosted', [GeneralController::class,'getRecentlyPosted']);
 
 });
-//rutas asociadas a las consultas generales que no necesitan autenticación
+//rutas asociadas a las consultas relacionadas a proyectos
 Route::group([
   'prefix' => 'project'
 ], function ($router) {
@@ -43,3 +45,27 @@ Route::group([
 
 });
 
+//rutas asociadas a las consultas relacionadas a video
+Route::group([
+  'prefix' => 'video'
+], function ($router) {
+
+  Route::get('recentlyPosted', [VideoController::class,'getRecentlyPosted']);
+
+});
+//rutas asociadas a las consultas relacionadas a imagenes
+Route::group([
+  'prefix' => 'picture'
+], function ($router) {
+
+  Route::get('recentlyPosted', [PictureController::class,'getRecentlyPosted']);
+
+});
+//rutas asociadas a las consultas relacionadas a podcast
+Route::group([
+  'prefix' => 'podcast'
+], function ($router) {
+
+  Route::get('recentlyPosted', [PodcastController::class,'getRecentlyPosted']);
+
+});
