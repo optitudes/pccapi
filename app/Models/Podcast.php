@@ -21,7 +21,7 @@ class Podcast extends Model
       return DB::table('podcasts')
       ->orderBy('id', 'desc') // Ordenar en orden descendente para obtener los últimos elementos primero
       ->take($limit) // Tomar los últimos seis elementos
-      ->select('title','id','link','description','banner')
+      ->select('title','id','link','description','banner','created_at')
       ->get();
     }
 }

@@ -32,7 +32,7 @@ class Project extends Model
       return DB::table('projects')
       ->orderBy('id', 'desc') // Ordenar en orden descendente para obtener los últimos elementos primero
       ->take($limit) // Tomar los últimos seis elementos
-      ->select('name','id','banner')
+      ->select('name','id','banner','created_at')
       ->get();
     }
 }

@@ -20,7 +20,7 @@ class Picture extends Model
     return DB::table('pictures')
     ->orderBy('id', 'desc') // Ordenar en orden descendente para obtener los últimos elementos primero
     ->take($limit) // Tomar los últimos seis elementos
-    ->select('title','id','link','description')
+    ->select('title','id','link','description','created_at')
     ->get();
   }
 }
