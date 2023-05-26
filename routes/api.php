@@ -42,6 +42,7 @@ Route::group([
 ], function ($router) {
 
   Route::get('recentlyPosted', [ProjectController::class,'getRecentlyPosted']);
+  Route::get('/search/{word}',[ProjectController::class,'searchProjects']);
 
 });
 
@@ -51,6 +52,7 @@ Route::group([
 ], function ($router) {
 
   Route::get('recentlyPosted', [VideoController::class,'getRecentlyPosted']);
+  Route::get('/search/{word}',[VideoController::class,'searchVideos']);
 
 });
 //rutas asociadas a las consultas relacionadas a imagenes
@@ -59,6 +61,7 @@ Route::group([
 ], function ($router) {
 
   Route::get('recentlyPosted', [PictureController::class,'getRecentlyPosted']);
+  Route::get('/search/{word}',[PictureController::class,'searchPictures']);
 
 });
 //rutas asociadas a las consultas relacionadas a podcast
@@ -67,5 +70,6 @@ Route::group([
 ], function ($router) {
 
   Route::get('recentlyPosted', [PodcastController::class,'getRecentlyPosted']);
+  Route::get('/search/{word}',[PodcastController::class,'searchPodcasts']);
 
 });

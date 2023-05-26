@@ -32,7 +32,15 @@ class Project extends Model
       return DB::table('projects')
       ->orderBy('id', 'desc') // Ordenar en orden descendente para obtener los últimos elementos primero
       ->take($limit) // Tomar los últimos seis elementos
-      ->select('name','id','banner')
+      ->select('name','id','banner','description')
+      ->get();
+    }
+    //metodo que retorna informacion de los elementos que coincidan con una palabra, maximo 15
+    public static function  searchProjects($word=""){
+      return DB::table('projects')
+      ->where('name','like','%'.$word.'%',)
+      ->select('name','id','banner','description')
+      ->limit(15)
       ->get();
     }
 }

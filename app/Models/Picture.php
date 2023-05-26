@@ -15,7 +15,7 @@ class Picture extends Model
       }
 
         //Metodo que retorna el titulo, id y link y descripción de los ultimos 6 elementos
-  public static function getLast($limit = 6){
+  public static function getLast($limit = 10){
 
     return DB::table('pictures')
     ->orderBy('id', 'desc') // Ordenar en orden descendente para obtener los últimos elementos primero
@@ -23,4 +23,14 @@ class Picture extends Model
     ->select('title','id','link','description')
     ->get();
   }
+
+//metodo que retorna informacion de los elementos que coincidan con una palabra, maximo 15
+    public static function  searchPictures($word=""){
+      return DB::table('pictures')
+      ->where('title','like','%'.$word.'%',)
+      ->select('title','id','link','description')
+      ->limit(15)
+      ->get();
+    }
+
 }
