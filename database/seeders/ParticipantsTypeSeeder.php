@@ -26,6 +26,6 @@ class ParticipantsTypeSeeder extends Seeder
             'description' => 'es el encargado de observar', 
           ]
         ]
-      );       //
+      );
     }
 }
