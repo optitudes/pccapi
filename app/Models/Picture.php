@@ -20,7 +20,7 @@ class Picture extends Model
     return DB::table('pictures')
     ->orderBy('id', 'desc') // Ordenar en orden descendente para obtener los últimos elementos primero
     ->take($limit) // Tomar los últimos seis elementos
-    ->select('title','id','link','description')
+    ->select('title','id','link','description','created_at')
     ->get();
   }
 
@@ -28,9 +28,8 @@ class Picture extends Model
     public static function  searchPictures($word=""){
       return DB::table('pictures')
       ->where('title','like','%'.$word.'%',)
-      ->select('title','id','link','description')
-      ->limit(15)
-      ->get();
+      ->select('title','id','link','description','created_at')
+      ->paginate(7);
     }
 
 }

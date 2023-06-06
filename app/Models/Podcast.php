@@ -20,7 +20,7 @@ class Podcast extends Model
       return DB::table('podcasts')
       ->orderBy('id', 'desc') // Ordenar en orden descendente para obtener los últimos elementos primero
       ->take($limit) // Tomar los últimos seis elementos
-      ->select('title','id','link','description','banner')
+      ->select('title','id','link','description','banner','created_at')
       ->get();
     }
 
@@ -28,8 +28,7 @@ class Podcast extends Model
     public static function  searchPodcasts($word=""){
       return DB::table('podcasts')
       ->where('title','like','%'.$word.'%',)
-      ->select('title','id','link','description','banner')
-      ->limit(15)
-      ->get();
+      ->select('title','id','link','description','banner','created_at')
+      ->paginate(7);
     }
 }

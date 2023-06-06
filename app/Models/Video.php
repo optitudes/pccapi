@@ -27,8 +27,7 @@ class Video extends Model
     public static function  searchVideos($word=""){
       return DB::table('videos')
       ->where('title','like','%'.$word.'%',)
-      ->select('title','id','link','description','banner')
-      ->limit(15)
-      ->get();
+      ->select('title','id','link','description','created_at','banner')
+      ->paginate(7);
     }
 }
