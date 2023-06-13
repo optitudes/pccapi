@@ -64,6 +64,7 @@ Route::group([
 
   Route::get('recentlyPosted', [PictureController::class,'getRecentlyPosted']);
   Route::get('/search/{word}',[PictureController::class,'searchPictures']);
+  Route::get('/get/{id}',[PictureController::class,'getAvailablePicture']);
 
 });
 //rutas asociadas a las consultas relacionadas a podcast

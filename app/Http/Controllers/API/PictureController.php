@@ -35,4 +35,21 @@ class PictureController extends BaseController
             return $this->sendError('Ocurrio un error al obtener las imagenes');
         }
     }
+
+
+    //metodo que obtiene una   imagen cuyo id concuerde con el idImagen
+    public function getAvailablePicture(Request $request,$idPicture)
+    {
+        try{
+            $data = Picture::find($idPicture);
+            if($data){
+                return $this->sendResponse($data, 'Imagen obtenida con exito');
+            }else{
+                return $this->sendError('La imagen no existe');
+            }
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener la imagen');
+        }
+    }
+
 }
