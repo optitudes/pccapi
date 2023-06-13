@@ -35,4 +35,20 @@ class ProjectController extends BaseController
             return $this->sendError('Ocurrio un error al obtener los proyectos');
         }
     }
+
+
+    //metodo que obtiene un proyecto cuyo id concuerde con el idProject
+    public function getAvailableProject(Request $request,$idProject)
+    {
+        try{
+            $data = Project::find($idProject);
+            if($data){
+                return $this->sendResponse($data, 'Proyecto obtenido con exito');
+            }else{
+                return $this->sendError('El proyecto no existe');
+            }
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener el proyecto');
+        }
+    }
 }

@@ -43,6 +43,7 @@ Route::group([
 
   Route::get('recentlyPosted', [ProjectController::class,'getRecentlyPosted']);
   Route::get('/search/{word}',[ProjectController::class,'searchProjects']);
+  Route::get('/get/{id}',[ProjectController::class,'getAvailableProject']);
 
 });
 
