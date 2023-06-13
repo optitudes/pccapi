@@ -53,6 +53,8 @@ Route::group([
 
   Route::get('recentlyPosted', [VideoController::class,'getRecentlyPosted']);
   Route::get('/search/{word}',[VideoController::class,'searchVideos']);
+  Route::get('/get/{id}',[VideoController::class,'getAvailableVideo']);
+  
 
 });
 //rutas asociadas a las consultas relacionadas a imagenes

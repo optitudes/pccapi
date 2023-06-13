@@ -33,5 +33,19 @@ class VideoController extends BaseController
             return $this->sendError('Ocurrio un error al obtener los podcasts');
         }
     }
+    //metodo que un  video cuyo id concuerde con el idVideo 
+    public function getAvailableVideo(Request $request,$idVideo)
+    {
+        try{
+            $data = Video::find($idVideo);
+            if($data){
+                return $this->sendResponse($data, 'Video obtenido con exito');
+            }else{
+                return $this->sendError('El Video no existe');
+            }
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener los podcasts');
+        }
+    }
 
 }
