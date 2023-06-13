@@ -33,4 +33,18 @@ class PodcastController extends BaseController
             return $this->sendError('Ocurrio un error al obtener los podcasts');
         }
     }
+    //metodo que obtiene un podcast cuyo id concuerde con el idPodcast
+    public function getAvailablePodcast(Request $request,$idPodcast)
+    {
+        try{
+            $data = Podcast::find($idPodcast);
+            if($data){
+                return $this->sendResponse($data, 'Podcast obtenido con exito');
+            }else{
+                return $this->sendError('El podcast no existe');
+            }
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener el podcast');
+        }
+    }
 }

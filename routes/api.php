@@ -74,5 +74,6 @@ Route::group([
 
   Route::get('recentlyPosted', [PodcastController::class,'getRecentlyPosted']);
   Route::get('/search/{word}',[PodcastController::class,'searchPodcasts']);
+  Route::get('/get/{id}',[PodcastController::class,'getAvailablePodcast']);
 
 });
