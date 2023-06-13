@@ -52,4 +52,19 @@ class PictureController extends BaseController
         }
     }
 
+    //metodo que obtiene una   imagen cuyo id concuerde con el idImagen
+    public function getAvailablePicturesByProject(Request $request,$idProject)
+    {
+        try{
+            $data = Picture::where('project_id', $idProject)->get();
+            if($data){
+                return $this->sendResponse($data, 'Imagen obtenida con exito');
+            }else{
+                return $this->sendError('La imagen no existe');
+            }
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener la imagen');
+        }
+    }
+
 }

@@ -55,6 +55,7 @@ Route::group([
   Route::get('recentlyPosted', [VideoController::class,'getRecentlyPosted']);
   Route::get('/search/{word}',[VideoController::class,'searchVideos']);
   Route::get('/get/{id}',[VideoController::class,'getAvailableVideo']);
+  Route::get('/getByProject/{id}',[VideoController::class,'getAvailableVideosByProject']);
   
 
 });
@@ -66,6 +67,7 @@ Route::group([
   Route::get('recentlyPosted', [PictureController::class,'getRecentlyPosted']);
   Route::get('/search/{word}',[PictureController::class,'searchPictures']);
   Route::get('/get/{id}',[PictureController::class,'getAvailablePicture']);
+  Route::get('/getByProject/{id}',[PictureController::class,'getAvailablePicturesByProject']);
 
 });
 //rutas asociadas a las consultas relacionadas a podcast
@@ -76,5 +78,6 @@ Route::group([
   Route::get('recentlyPosted', [PodcastController::class,'getRecentlyPosted']);
   Route::get('/search/{word}',[PodcastController::class,'searchPodcasts']);
   Route::get('/get/{id}',[PodcastController::class,'getAvailablePodcast']);
+  Route::get('/getByProject/{id}',[PodcastController::class,'getAvailablePodcastsByProject']);
 
 });

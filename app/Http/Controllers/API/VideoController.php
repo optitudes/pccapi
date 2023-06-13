@@ -47,5 +47,19 @@ class VideoController extends BaseController
             return $this->sendError('Ocurrio un error al obtener los podcasts');
         }
     }
+    //metodo que un  video cuyo project id concuerde con el  idProject
+    public function getAvailableVideosByProject(Request $request,$idProject)
+    {
+        try{
+            $data = Video::where('project_id', $idProject)->get();
+            if($data){
+                return $this->sendResponse($data, 'Video obtenido con exito');
+            }else{
+                return $this->sendError('El Video no existe');
+            }
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener los podcasts');
+        }
+    }
 
 }

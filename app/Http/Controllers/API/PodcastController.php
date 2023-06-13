@@ -47,4 +47,18 @@ class PodcastController extends BaseController
             return $this->sendError('Ocurrio un error al obtener el podcast');
         }
     }
+    //metodo que obtiene los podcasts que pertenezcan a un proyecto 
+    public function getAvailablePodcastsByProject(Request $request,$idProject)
+    {
+        try{
+            $data = Podcast::where('project_id', $idProject)->get();
+            if($data){
+                return $this->sendResponse($data, 'Podcast obtenido con exito');
+            }else{
+                return $this->sendError('El podcast no existe');
+            }
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener el podcast');
+        }
+    }
 }
