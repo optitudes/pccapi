@@ -11,7 +11,7 @@ class Podcast extends Model
     use HasFactory;
 
     public function project(){
-        $this->belongsTo('App\Models\Project');
+        return $this->belongsTo('App\Models\Project');
       }
 
     //Metodo que retorna el titulo, id y link y descripción de los ultimos 6 elementos

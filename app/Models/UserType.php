@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class UserType extends Model
 {
     use HasFactory;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'description',
+        'level_access',
+    ];
+
     public function users(){
       return $this->hasMany('App\Models\User');
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Models\User;
+use App\Models\Participants;
    
 class AuthController extends BaseController
 {
@@ -15,8 +16,17 @@ class AuthController extends BaseController
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $authUser = Auth::user(); 
             $success['token'] =  $authUser->createToken('MyAuthApp')->plainTextToken; 
-            $success['name'] =  $authUser->name;
-   
+            $userType = $authUser->userType;
+            $success['userInfo'] =  array(
+                'name' => $authUser->name,
+                'userType' => array(
+                                'name' => $userType->name,
+                                'description' => $userType->description,
+                                'levelAccess' => $userType->level_access,
+                             ),
+                'participantInfo' => Participants::getParticipantsTypeBasicInfo($authUser->id),
+            );
+
             return $this->sendResponse($success, 'User signed in');
         } 
         else{ 

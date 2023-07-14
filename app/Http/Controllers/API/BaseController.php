@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller as Controller;
+use App\Http\Controllers\API\Controller as Controller;
 
 class BaseController extends Controller
 {
@@ -20,6 +20,9 @@ class BaseController extends Controller
         ];
         return response()->json($response, 200);
     }
+    public function getUser(){
+        return auth()->user();
+    }
 
     /**
      * return error response.
@@ -36,5 +39,11 @@ class BaseController extends Controller
             $response['data'] = $errorMessages;
         }
         return response()->json($response, $code);
+    }
+    public function getUserId(){
+        return auth()->user()->id??-1;
+    }
+    public function getUserLevelAccess(){
+        return auth()->user()->userType->level_access??-1;
     }
 }

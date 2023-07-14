@@ -23,7 +23,7 @@ class Project extends Model
       return $this->hasMany('App\Models\SocialNetworks');
     }
     public function participants (){
-      $this->belongsToMany('App\Models\Participants');
+     return $this->belongsToMany('App\Models\Participants');
     }
 
     //Metodo que retorna el nombre, id y banner de los ultimos 6 elementos

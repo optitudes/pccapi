@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\ParticipantsType;
 
 class User extends Authenticatable
 {
@@ -44,7 +45,13 @@ class User extends Authenticatable
     public function userType(){
       return $this->belongsTo('App\Models\UserType');
     }
-    public function participant(){
-        return $this->hasOne('App\Models\Participants');
+    public function userParticipants(){
+        return $this->hasMany('App\Models\Participants');
       }
+    public function userParticipantsTypeBasicInfo(){
+        $data ['participants_type_id'] = $this->hasMany('App\Models\Participants')->pluck('participants_type_id');
+
+        return $data;
+    }
+ 
 }

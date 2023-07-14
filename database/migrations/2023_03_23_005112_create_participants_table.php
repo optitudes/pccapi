@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             //relacion con el tipo de participante
-            $table->unsignedBigInteger('participant_type_id')->nullable();
-            $table->foreign('participant_type_id')->references('id')->on('participants_types')->onDelete('set null');
+            $table->unsignedBigInteger('participants_type_id')->nullable();
+            $table->foreign('participants_type_id')->references('id')->on('participants_types')->onDelete('set null')->onUpdate("cascade");
             //relacion con el usuario
-            $table->unsignedBigInteger('user_id')->unique()->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate("cascade");
         });
     }

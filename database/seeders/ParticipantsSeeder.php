@@ -18,13 +18,26 @@ class ParticipantsSeeder extends Seeder
       \DB::table('participants')->insert(
         [
           [
-            'participant_type_id' => 1,
+            'participants_type_id' => 1,
             'user_id' =>1, 
           ],
           [
-            'participant_type_id' => 2,
+            'participants_type_id' => 2,
             'user_id' =>2, 
+          ],
+          [
+            'participants_type_id' => 3,
+            'user_id' =>3, 
+          ],
+          [
+            'participants_type_id' => 4,
+            'user_id' =>4, 
+          ],
+          [
+            'participants_type_id' => 3,
+            'user_id' =>4, 
           ]
+
         ]
       ); 
     }

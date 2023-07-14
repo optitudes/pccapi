@@ -21,6 +21,7 @@ class PodcastSeeder extends Seeder
               "link" => "https://www.youtube.com/watch?v=_DOVV9EbI2k",
               "banner" => "https://i.etsystatic.com/14966180/r/il/4893f6/1259760765/il_1588xN.1259760765_sdn3.jpg",
               'project_id' => 1,
+              'created_at' => "2022-01-01",
             ],
             [
                 "title" => "Acercamiento a la musica y el canto de las aves del quindío",
@@ -28,6 +29,7 @@ class PodcastSeeder extends Seeder
                 "link" => "https://www.youtube.com/watch?v=vo5uPDx6CHI",
                 "banner" => "https://letraslibres.com/wp-content/uploads/2020/08/loro%20del%20rin.jpg",
                 'project_id' => 1,
+              'created_at' => "2022-01-01",
               ],
           ]);
     }

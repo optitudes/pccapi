@@ -24,11 +24,17 @@ Route::get('/', function (){
 });
 Route::post('auth/login', [AuthController::class, 'signin']);
 Route::post('auth/register', [AuthController::class, 'signup']);
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-//rutas asociadas a las consultas generales
+//ruta para probar el logeo
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return auth()->user();
+});
+//rutas que requieren autenticacion por token bearer
+Route::group([
+  'middleware' => 'auth:sanctum'
+], function ($router) {
+
+
 Route::group([
   'prefix' => 'general'
 ], function ($router) {
@@ -36,6 +42,11 @@ Route::group([
   Route::get('recentlyPosted', [GeneralController::class,'getRecentlyPosted']);
 
 });
+  //crud areas
+});
+
+//rutas asociadas a las consultas generales
+
 //rutas asociadas a las consultas relacionadas a proyectos
 Route::group([
   'prefix' => 'project'
