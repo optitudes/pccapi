@@ -34,6 +34,7 @@ Route::group([
   'middleware' => 'auth:sanctum'
 ], function ($router) {
 
+Route::post('auth/logout', [AuthController::class, 'logout']);
 
 Route::group([
   'prefix' => 'general'

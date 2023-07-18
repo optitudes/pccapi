@@ -33,6 +33,7 @@ class AuthController extends BaseController
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
         } 
     }
+    //metodo que crea un usuario
     public function signup(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -54,5 +55,13 @@ class AuthController extends BaseController
    
         return $this->sendResponse($success, 'User created successfully.');
     }
+    //metodo que deslogea un usuario usando solo el bearer token de autenticacion
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return $this->sendResponse([], 'User signed out');
+    }
+
    
 }
