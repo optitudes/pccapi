@@ -359,6 +359,29 @@
 </section>
 
 <!-- Slide 6 (#83) -->
+<!-- Slide 6.5 (#34) -->
+<section class="slide fade-6 kenBurns" data-name="Significado de los colores del logo">
+  <div class="content">
+    <div class="container">
+      <div class="wrap">
+      
+        <div class="fix-12-12">
+          <ul class="flex fixedSpaces verticalCenter reverse">
+            <li class="col-6-12 left middle">
+              <h1 class="ae-1 fromLeft">Significado de los colores del logo</h1>
+            </li>
+            <li class="col-6-12">
+              <img class="ae-4" width="605" src="assets/img/colorsHistori.jpeg" alt="iPhones Thumbnail" data-action="zoom"/>
+            </li>
+          </ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="background" style="background-image:url(assets/img/background/img-34.jpg)"></div>
+</section>
+
 
 
 <!-- Slide 7 (#95) -->
