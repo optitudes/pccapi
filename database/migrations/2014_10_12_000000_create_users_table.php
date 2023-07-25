@@ -22,6 +22,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string("city");
+            $table->timestamp('deleted_at')->nullable();
 
             //relations with the user type 
             $table->unsignedBigInteger('user_type_id')->nullable();

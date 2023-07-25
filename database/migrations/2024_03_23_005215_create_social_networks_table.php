@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string("link");
+            $table->timestamp('deleted_at')->nullable();
 
             //relations with the social network name
             $table->unsignedBigInteger('social_network_name_id')->nullable();

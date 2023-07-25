@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('podcasts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
 
             $table->string('title');
             $table->string('description');

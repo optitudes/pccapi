@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Validator;
 use App\Models\Project;
+use App\Models\Picture;
+use App\Models\Podcast;
+use App\Models\Video;
 
  
 
@@ -86,6 +89,35 @@ class ProjectController extends BaseController
         }catch(Exception $e){
             return $this->sendError('Ocurrio un error al encontrar el proyecto a editar');
         }
+    }
+
+//metodo que elimina un proyecto existente 
+    public function remove(Request $request)
+    {
+        try{
+            //se obtienen los datos del request (pendiente a implementar validations de laravel)
+            $idProject = $request->input('id');
+
+            $project = Project::find($idProject);
+            //verificar si el nombre ya existe
+            if($project == null){
+                return $this->sendError('El proyecto no ha sido encontrado.');
+            }
+
+            //se elimina todo el contenido relacionado al proyecto
+            Picture::deleteByProjectId($idProject);
+            Video::deleteByProjectId($idProject);
+            Podcast::deleteByProjectId($idProject);
+            $project->deleted_at = now();
+            $project->save();
+
+            // Realizar cualquier lógica adicional con los datos y la imagen
+            return $this->sendResponse(null,"Proyecto borrado con éxito");
+
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al encontrar el proyecto a borrar');
+        }
+
     }
 
 

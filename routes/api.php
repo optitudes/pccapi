@@ -36,18 +36,9 @@ Route::group([
 ], function ($router) {
 
 Route::post('auth/logout', [AuthController::class, 'logout']);
-
-Route::group([
-  'prefix' => 'general'
-], function ($router) {
-
-  Route::get('recentlyPosted', [GeneralController::class,'getRecentlyPosted']);
-
-});
   //crud areas
 });
 
-//rutas asociadas a las consultas generales
 
 //rutas asociadas a las consultas relacionadas a proyectos
 Route::group([
@@ -57,7 +48,7 @@ Route::group([
   Route::get('recentlyPosted', [ProjectController::class,'getRecentlyPosted']);
   Route::get('/search/{word}',[ProjectController::class,'searchProjects']);
   Route::get('/get/{id}',[ProjectController::class,'getAvailableProject']);
-
+  Route::post('/remove',[ProjectController::class,'remove']);
 //rutas que requieren autenticacion por token bearer
 Route::group([
   'middleware' => 'auth:sanctum'
