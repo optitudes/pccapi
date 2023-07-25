@@ -22,13 +22,14 @@ use App\Http\Controllers\API\PodcastController;
 Route::get('/', function (){
   return "api funcionando";
 });
-Route::post('auth/login', [AuthController::class, 'signin']);
+Route::post('auth/login', [AuthController::class, 'signin'])->name('login');
 Route::post('auth/register', [AuthController::class, 'signup']);
 
 //ruta para probar el logeo
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return auth()->user();
 });
+
 //rutas que requieren autenticacion por token bearer
 Route::group([
   'middleware' => 'auth:sanctum'
@@ -56,6 +57,15 @@ Route::group([
   Route::get('recentlyPosted', [ProjectController::class,'getRecentlyPosted']);
   Route::get('/search/{word}',[ProjectController::class,'searchProjects']);
   Route::get('/get/{id}',[ProjectController::class,'getAvailableProject']);
+
+//rutas que requieren autenticacion por token bearer
+Route::group([
+  'middleware' => 'auth:sanctum'
+], function ($router) {
+
+  Route::post('/create',[ProjectController::class,'create']);
+
+});
 
 });
 
