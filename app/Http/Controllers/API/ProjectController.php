@@ -70,7 +70,8 @@ class ProjectController extends BaseController
                 // Guardar la imagen y obtener su ruta en el servidor
                 $path = $banner->storeAs('projects/'.$newProject->id.'/banner', $nombreImagen, 'public');
                 $fullBannerPath = url("/")."/storage/".$path;
-                $newProject->banner =$fullBannerPath; 
+                $newProject->banner = $fullBannerPath; 
+                $newProject->save(); 
                 //$bannerPath = $banner->store('projects/8/banner/'.$nombreImagen.'public');
                 // $bannerPath contiene la ruta de la imagen en el servidor
             }
