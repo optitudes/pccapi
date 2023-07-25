@@ -186,7 +186,7 @@ class ProjectController extends BaseController
     public function getAvailableProject(Request $request,$idProject)
     {
         try{
-            $data = Project::find($idProject);
+            $data = Project::where('id',$idProject)->whereNull("deleted_at")->first();
             if($data){
                 return $this->sendResponse($data, 'Proyecto obtenido con exito');
             }else{
