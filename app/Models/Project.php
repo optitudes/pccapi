@@ -30,6 +30,7 @@ class Project extends Model
     public static function getLast($limit = 6){
 
       return DB::table('projects')
+      ->whereNull('deleted_at') // Agregamos esta cláusula para omitir registros con deleted_at diferente de null
       ->orderBy('id', 'desc') // Ordenar en orden descendente para obtener los últimos elementos primero
       ->take($limit) // Tomar los últimos seis elementos
       ->select('name','id','banner','description','created_at')
@@ -39,6 +40,7 @@ class Project extends Model
     public static function  searchProjects($word=""){
       return DB::table('projects')
       ->where('name','like','%'.$word.'%',)
+      ->whereNull('deleted_at') // Agregamos esta cláusula para omitir registros con deleted_at diferente de null
       ->select('name','id','banner','description','created_at')
       ->paginate(7);
     }
