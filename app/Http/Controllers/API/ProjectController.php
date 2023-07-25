@@ -196,4 +196,19 @@ class ProjectController extends BaseController
             return $this->sendError('Ocurrio un error al obtener el proyecto');
         }
     }
+//metodo que obtiene los nombres de los proyectos que no han sido borrados
+    public function getAvailableProjectNames(Request $request)
+    {
+        try{
+            $data = Project::whereNull("deleted_at")->pluck('name')->toArray();
+            if($data){
+                return $this->sendResponse($data, 'Nombres de proyectos obtenidos con exito');
+            }else{
+                return $this->sendError('Ocurrio un error al obtener los nomnbres de los proyectos');
+            }
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener los nomnbres de los proyectos');
+        }
+    }
+
 }

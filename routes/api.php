@@ -48,7 +48,7 @@ Route::group([
   Route::get('recentlyPosted', [ProjectController::class,'getRecentlyPosted']);
   Route::get('/search/{word}',[ProjectController::class,'searchProjects']);
   Route::get('/get/{id}',[ProjectController::class,'getAvailableProject']);
-  Route::post('/remove',[ProjectController::class,'remove']);
+  Route::get('/getNames',[ProjectController::class,'getAvailableProjectNames']);
 //rutas que requieren autenticacion por token bearer
 Route::group([
   'middleware' => 'auth:sanctum'
@@ -56,6 +56,7 @@ Route::group([
 
   Route::post('/create',[ProjectController::class,'create']);
   Route::post('/edit',[ProjectController::class,'edit']);
+  Route::post('/remove',[ProjectController::class,'remove']);
 
 });
 
