@@ -36,7 +36,61 @@ class ProjectController extends BaseController
             return $this->sendError('Ocurrio un error al obtener los proyectos');
         }
     }
-    //metodo que busca los proyectos cuyo titulo concuerde con la palabra 
+
+//metodo que edita los datos de un proyecto existente 
+    public function edit(Request $request)
+    {
+        try{
+            //se obtienen los datos del request (pendiente a implementar validations de laravel)
+            $name = $request->input('name');
+            $description = $request->input('description');
+            $idProject = $request->input('id');
+
+            $project = Project::findOrFail($idProject);
+            //verificar si el nombre ya existe
+            if( $project->deleted_at != null){
+                return $this->sendError('El proyecto ha sido eliminado, por tanto no se puede editar.');
+            }
+
+            //verificar si el nombre ya existe
+            if( $project->name != $name && !$this->isProjectNameAvailable($name)){
+                return $this->sendError('El nombre de proyecto ya está registrado.');
+            }
+            // Procesar los datos recibidos
+
+            $project->name = $name;
+            $project->description = $description;
+            $project->save();
+            if ($request->hasFile('banner')) {
+                $banner = $request->file('banner');
+
+                // Verificar si el archivo es una imagen válida
+                if (!$this->isImageValid($banner)) {
+                    return response()->json(['message' => 'El archivo no es una imagen válida'], 400);
+                }
+                // Obtener la extensión original del archivo
+                $extension = $banner->getClientOriginalExtension();
+
+                // Nombre deseado para la imagen con la extensión
+                $nombreImagen = 'bannerImage.' . $extension;
+
+                // Guardar la imagen y obtener su ruta en el servidor
+                $path = $banner->storeAs('projects/'.$project->id.'/banner', $nombreImagen, 'public');
+                $fullBannerPath = url("/")."/storage/".$path;
+                $project->banner = $fullBannerPath; 
+                $project->save(); 
+            }
+            // Realizar cualquier lógica adicional con los datos y la imagen
+            return $this->sendResponse($project,"Proyecto actualizado con éxito");
+
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al encontrar el proyecto a editar');
+        }
+    }
+
+
+
+    //metodo que crea un nuevo proyecto 
     public function create(Request $request)
     {
         try{

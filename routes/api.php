@@ -64,6 +64,7 @@ Route::group([
 ], function ($router) {
 
   Route::post('/create',[ProjectController::class,'create']);
+  Route::post('/edit',[ProjectController::class,'edit']);
 
 });
 
