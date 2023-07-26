@@ -175,12 +175,43 @@ class VideoController extends BaseController
             // $bannerPath contiene la ruta de la imagen en el servidor
         }
         // Realizar cualquier lógica adicional con los datos y la imagen
-        return $this->sendResponse($video,"Video creado con éxito");
+        return $this->sendResponse($video,"Video editado con éxito");
 
         }catch(Exception $e){
             return $this->sendError('Ocurrio un error al actualizar el video');
         }
     }
+//metodo que elimina un video existente 
+    public function remove(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(), [
+                'id' => 'required|numeric|min:0',
+            ]);
+            if($validator->fails()){
+                return $this->sendError('Error validation', $validator->errors());       
+            }
+             
+
+            $payload = $request->all();
+
+            $video = Video::find($payload['id']);
+            //verificar si el video fue encontrado 
+            if($video == null){
+                return $this->sendError('El video no ha sido encontrado.');
+            }
+            $video->deleted_at = now();
+            $video->save();
+
+            // Realizar cualquier lógica adicional 
+            return $this->sendResponse(null,"Video borrado con éxito");
+
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al encontrar el video a borrar');
+        }
+
+    }
+
 
 
  //metodo que valida que un file sea una imagen

@@ -74,6 +74,7 @@ Route::group([
 
   Route::post('/create',[VideoController::class,'create']);
   Route::post('/edit',[VideoController::class,'edit']);
+  Route::post('/remove',[VideoController::class,'remove']);
 /*ectController::class,'edit']);
  // Route::post('/remove',[ProjectController::class,'remove']);
 
