@@ -7,6 +7,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Models\Video;
+use App\Models\Project;
 
  
 
@@ -62,4 +63,73 @@ class VideoController extends BaseController
         }
     }
 
+    //metodo que crea un nuevo video 
+    public function create(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string',
+                'description' => 'required|string',
+                'link' => 'required|string',
+                'projectName' => 'required|string',
+                'banner' => 'required|file|mimes:jpeg,png,jpg,gif',
+            ]);
+        if($validator->fails()){
+            return $this->sendError('Error validation', $validator->errors());       
+        }
+             
+
+        $payload = $request->all();
+
+        $project = Project::whereNull("deleted_at")->where('name',$payload['projectName'])->select('id')->first();
+
+        if($project == null){
+            return $this->sendError('Error al hallar el proyecto');       
+        }
+            
+            // Procesar los datos recibidos
+
+        $newVideo = new Video();
+        $newVideo->title = $payload['title'];
+        $newVideo->description = $payload['description'];
+        $newVideo->link = $payload['link'];
+        $newVideo->project_id = $project->id;
+        $newVideo->save();
+        if ($request->hasFile('banner')) {
+            $banner = $request->file('banner');
+
+            // Verificar si el archivo es una imagen válida
+            if (!$this->isImageValid($banner)) {
+                return response()->json(['message' => 'El archivo no es una imagen válida'], 400);
+            }
+            // Obtener la extensión original del archivo
+            $extension = $banner->getClientOriginalExtension();
+
+            // Nombre deseado para la imagen con la extensión
+            $nombreImagen = $newVideo->id.'video.' . $extension;
+
+            // Guardar la imagen y obtener su ruta en el servidor
+            $path = $banner->storeAs('projects/'.$project->id.'/banner/videos', $nombreImagen, 'public');
+            $fullBannerPath = url("/")."/storage/".$path;
+            $newVideo->banner = $fullBannerPath; 
+            $newVideo->save(); 
+            //$bannerPath = $banner->store('projects/8/banner/'.$nombreImagen.'public');
+            // $bannerPath contiene la ruta de la imagen en el servidor
+        }
+        // Realizar cualquier lógica adicional con los datos y la imagen
+        return $this->sendResponse($newVideo,"Proyecto creado con éxito");
+
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener los proyectos');
+        }
+    }
+
+ //metodo que valida que un file sea una imagen
+ private function isImageValid($file)
+ {
+     $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif']; // Agregar otros tipos de imagen permitidos si es necesario
+     $fileMimeType = $file->getMimeType();
+ 
+     return in_array($fileMimeType, $allowedMimeTypes) && getimagesize($file->getPathname()) !== false;
+ }
 }
