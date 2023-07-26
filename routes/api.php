@@ -71,7 +71,9 @@ Route::group([
   Route::get('/search/{word}',[VideoController::class,'searchVideos']);
   Route::get('/get/{id}',[VideoController::class,'getAvailableVideo']);
   Route::get('/getByProject/{id}',[VideoController::class,'getAvailableVideosByProject']);
+
   Route::post('/create',[VideoController::class,'create']);
+  Route::post('/edit',[VideoController::class,'edit']);
 /*ectController::class,'edit']);
  // Route::post('/remove',[ProjectController::class,'remove']);
 

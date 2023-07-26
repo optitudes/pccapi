@@ -124,6 +124,65 @@ class VideoController extends BaseController
         }
     }
 
+ //metodo que edita un video 
+    public function edit(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string',
+                'description' => 'required|string',
+                'link' => 'required|string',
+                'id' => 'required|numeric|min:0',
+                'banner' => 'required|file|mimes:jpeg,png,jpg,gif',
+            ]);
+        if($validator->fails()){
+            return $this->sendError('Error validation', $validator->errors());       
+        }
+             
+
+        $payload = $request->all();
+
+        $video = Video::whereNull("deleted_at")->where('id',$payload['id'])->first();
+
+        if($video == null){
+            return $this->sendError('Error al hallar el video a editar');       
+        }
+            
+        // actualizar los datos del video
+        $video->title = $payload['title'];
+        $video->description = $payload['description'];
+        $video->link = $payload['link'];
+        $video->save();
+        if ($request->hasFile('banner')) {
+            $banner = $request->file('banner');
+
+            // Verificar si el archivo es una imagen válida
+            if (!$this->isImageValid($banner)) {
+                return response()->json(['message' => 'El archivo no es una imagen válida'], 400);
+            }
+            // Obtener la extensión original del archivo
+            $extension = $banner->getClientOriginalExtension();
+
+            // Nombre deseado para la imagen con la extensión
+            $nombreImagen = $video->id.'video.' . $extension;
+
+            // Guardar la imagen y obtener su ruta en el servidor
+            $path = $banner->storeAs('projects/'.$video->project_id.'/banner/videos', $nombreImagen, 'public');
+            $fullBannerPath = url("/")."/storage/".$path;
+            $video->banner = $fullBannerPath; 
+            $video->save(); 
+            //$bannerPath = $banner->store('projects/8/banner/'.$nombreImagen.'public');
+            // $bannerPath contiene la ruta de la imagen en el servidor
+        }
+        // Realizar cualquier lógica adicional con los datos y la imagen
+        return $this->sendResponse($video,"Video creado con éxito");
+
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al actualizar el video');
+        }
+    }
+
+
  //metodo que valida que un file sea una imagen
  private function isImageValid($file)
  {
