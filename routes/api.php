@@ -97,6 +97,8 @@ Route::group([
 
 
   Route::post('/create',[PictureController::class,'create']);
+  Route::post('/edit',[PictureController::class,'edit']);
+  Route::post('/remove',[PictureController::class,'remove']);
 
 });
 //rutas asociadas a las consultas relacionadas a podcast

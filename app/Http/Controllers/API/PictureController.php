@@ -129,4 +129,87 @@ class PictureController extends BaseController
      }
  
 
+     //metodo que crea una nueva imagen 
+     public function edit(Request $request)
+     {
+         try{
+             $validator = Validator::make($request->all(), [
+                 'title' => 'required|string',
+                 'description' => 'required|string',
+                 'id' => 'required|numeric|min:0',
+                 'banner' => 'required|file|mimes:jpeg,png,jpg,gif',
+             ]);
+         if($validator->fails()){
+             return $this->sendError('Error validation', $validator->errors());       
+         }
+              
+ 
+         $payload = $request->all();
+ 
+        $picture = Picture::whereNull("deleted_at")->where('id',$payload['id'])->first();
+ 
+         if($picture == null){
+             return $this->sendError('Error al hallar la imagen a editar'.$payload['id']);       
+         }
+             
+        // Procesar los datos recibidos
+ 
+         $picture->title = $payload['title'];
+         $picture->description = $payload['description'];
+         $picture->save();
+         if ($request->hasFile('banner')) {
+             $banner = $request->file('banner');
+ 
+             // Obtener la extensión original del archivo
+             $extension = $banner->getClientOriginalExtension();
+ 
+             // Nombre deseado para la imagen con la extensión
+             $nombreImagen = $picture->id.'picture.' . $extension;
+ 
+             // Guardar la imagen y obtener su ruta en el servidor
+             $path = $banner->storeAs('projects/'.$picture->project_id.'/banner/pictures', $nombreImagen, 'public');
+             $fullBannerPath = url("/")."/storage/".$path;
+             $picture->link = $fullBannerPath; 
+             $picture->save(); 
+             //$bannerPath = $banner->store('projects/8/banner/'.$nombreImagen.'public');
+             // $bannerPath contiene la ruta de la imagen en el servidor
+         }         // Realizar cualquier lógica adicional con los datos y la imagen
+         return $this->sendResponse($picture,"Imagen actualizada con éxito");
+ 
+         }catch(Exception $e){
+             return $this->sendError('Ocurrio un error al actualizar la imagen');
+         }
+     }
+
+    //metodo que elimina un video existente 
+    public function remove(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(), [
+                'id' => 'required|numeric|min:0',
+            ]);
+            if($validator->fails()){
+                return $this->sendError('Error validation', $validator->errors());       
+            }
+             
+
+            $payload = $request->all();
+
+            $picture = Picture::find($payload['id']);
+            //verificar si la imagen fue encontrada
+            if($picture == null){
+                return $this->sendError('La imagen no ha sido encontrada.');
+            }
+            $picture->deleted_at = now();
+            $picture->save();
+
+            // Realizar cualquier lógica adicional 
+            return $this->sendResponse(null,"Imagen borrada con éxito");
+
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al encontrar la imagen a borrar');
+        }
+
+    }
+
 }
