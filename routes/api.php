@@ -95,10 +95,17 @@ Route::group([
   Route::get('/get/{id}',[PictureController::class,'getAvailablePicture']);
   Route::get('/getByProject/{id}',[PictureController::class,'getAvailablePicturesByProject']);
 
+//rutas que requieren autenticacion por token bearer
+  Route::group([
+    'middleware' => 'auth:sanctum'
+  ], function ($router) {
+
 
   Route::post('/create',[PictureController::class,'create']);
   Route::post('/edit',[PictureController::class,'edit']);
   Route::post('/remove',[PictureController::class,'remove']);
+
+  });
 
 });
 //rutas asociadas a las consultas relacionadas a podcast
@@ -110,5 +117,8 @@ Route::group([
   Route::get('/search/{word}',[PodcastController::class,'searchPodcasts']);
   Route::get('/get/{id}',[PodcastController::class,'getAvailablePodcast']);
   Route::get('/getByProject/{id}',[PodcastController::class,'getAvailablePodcastsByProject']);
+
+
+  Route::post('/create',[PodcastController::class,'create']);
 
 });

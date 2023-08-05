@@ -7,6 +7,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Models\Podcast;
+use App\Models\Project;
 
  
 
@@ -60,5 +61,81 @@ class PodcastController extends BaseController
         }catch(Exception $e){
             return $this->sendError('Ocurrio un error al obtener el podcast');
         }
+    }
+    //metodo que crea un nuevo podcast 
+    public function create(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(), [
+                'title' => 'required|string',
+                'description' => 'required|string',
+                'podcast' => 'required|file|mimes:mp3',
+                'projectName' => 'required|string',
+                'banner' => 'required|file|mimes:jpeg,png,jpg,gif',
+            ]);
+
+        if($validator->fails()){
+            return $this->sendError('Error validation', $validator->errors());       
+        }
+             
+
+        $payload = $request->all();
+
+        $project = Project::whereNull("deleted_at")->where('name',$payload['projectName'])->select('id')->first();
+
+        if($project == null){
+            return $this->sendError('Error al hallar el proyecto');       
+        }
+            
+            // Procesar los datos recibidos
+
+        $newPodcast = new Podcast();
+        $newPodcast->title = $payload['title'];
+        $newPodcast->description = $payload['description'];
+        $newPodcast->link = ' ';
+        $newPodcast->project_id = $project->id;
+        $newPodcast->save();
+        if ($request->hasFile('banner')) {
+            $banner = $request->file('banner');
+
+            // Obtener la extensión original del archivo
+            $extension = $banner->getClientOriginalExtension();
+
+            // Nombre deseado para la imagen con la extensión
+            $nombreImagen = $newPodcast->id.'podcast.' . $extension;
+
+            // Guardar la imagen y obtener su ruta en el servidor
+            $path = $banner->storeAs('projects/'.$project->id.'/banner/podcast', $nombreImagen, 'public');
+            $fullBannerPath = url("/")."/storage/".$path;
+            $newPodcast->banner = $fullBannerPath; 
+            $newPodcast->save(); 
+            //$bannerPath = $banner->store('projects/8/banner/'.$nombreImagen.'public');
+            // $bannerPath contiene la ruta de la imagen en el servidor
+        }
+        if ($request->hasFile('podcast')) {
+            $podcast = $request->file('podcast');
+
+            // Obtener la extensión original del archivo
+            $extension = $podcast->getClientOriginalExtension();
+
+            // Nombre deseado para el podcast con la extensión
+            $nombrePodcast = $newPodcast->id.'podcast.' . $extension;
+
+            // Guardar el podcast y obtener su ruta en el servidor
+            $path = $podcast->storeAs('projects/'.$project->id.'/podcast', $nombrePodcast, 'public');
+            $fullPodcastPath = url("/")."/storage/".$path;
+            $newPodcast->link = $fullPodcastPath; 
+            $newPodcast->save(); 
+            //$bannerPath = $banner->store('projects/8/banner/'.$nombreImagen.'public');
+            // $bannerPath contiene la ruta de la imagen en el servidor
+        }
+
+        // Realizar cualquier lógica adicional con los datos y la imagen
+        return $this->sendResponse($newPodcast,"Podcast creado con éxito");
+
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener los proyectos');
+        }      
+
     }
 }
