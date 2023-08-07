@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->string("city");
+            $table->string("city")->nullable();
             $table->timestamp('deleted_at')->nullable();
 
             //relations with the user type 
