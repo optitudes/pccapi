@@ -123,9 +123,9 @@ Route::group([
     'middleware' => 'auth:sanctum'
   ], function ($router) {
 
-
   Route::post('/create',[PodcastController::class,'create']);
   Route::post('/edit',[PodcastController::class,'edit']);
+  Route::post('/remove',[PodcastController::class,'remove']);
 
   });
 });

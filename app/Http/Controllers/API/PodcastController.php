@@ -214,5 +214,38 @@ class PodcastController extends BaseController
         }      
 
     }
+//metodo que elimina un podcast existente 
+    public function remove(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(), [
+                'id' => 'required|numeric|min:0',
+            ]);
+            if($validator->fails()){
+                return $this->sendError('Error validation', $validator->errors());       
+            }
+             
+
+            $payload = $request->all();
+
+            $podcast = Podcast::find($payload['id']);
+            //verificar si el video fue encontrado 
+            if($podcast == null){
+                return $this->sendError('El podcast no ha sido encontrado.');
+            }
+            $podcast->deleted_at = now();
+            $podcast->save();
+
+            // Realizar cualquier lógica adicional 
+            return $this->sendResponse(null,"Podcast borrado con éxito");
+
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al encontrar el podcast a borrar');
+        }
+
+    }
+
+
+
 
 }
