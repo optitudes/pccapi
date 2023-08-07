@@ -118,7 +118,14 @@ Route::group([
   Route::get('/get/{id}',[PodcastController::class,'getAvailablePodcast']);
   Route::get('/getByProject/{id}',[PodcastController::class,'getAvailablePodcastsByProject']);
 
+//rutas que requieren autenticacion por token bearer
+  Route::group([
+    'middleware' => 'auth:sanctum'
+  ], function ($router) {
+
 
   Route::post('/create',[PodcastController::class,'create']);
+  Route::post('/edit',[PodcastController::class,'edit']);
 
+  });
 });

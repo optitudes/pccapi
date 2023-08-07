@@ -29,7 +29,7 @@ class BaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function sendError($error, $errorMessages = [], $code = 408)
+    public function sendError($error, $errorMessages = [])
     {
     	$response = [
             'success' => false,
@@ -38,7 +38,7 @@ class BaseController extends Controller
         if(!empty($errorMessages)){
             $response['data'] = $errorMessages;
         }
-        return response()->json($response, $code);
+        return response()->json($response, 200);
     }
     public function getUserId(){
         return auth()->user()->id??-1;

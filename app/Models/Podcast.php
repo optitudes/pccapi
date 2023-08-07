@@ -39,5 +39,11 @@ class Podcast extends Model
       ->where('project_id',$idProject)
       ->update(['deleted_at' => now()]);
     }
+    public static function isPodcastTitleAlreadyUsed($titleToCheck){
+      return DB::table('podcasts')
+             ->whereNull('deleted_at') // Agregamos esta cláusula para omitir registros con deleted_at diferente de null
+      	     ->where('title',$titleToCheck)
+     	     ->count() != 0;
+    }
 
 }
