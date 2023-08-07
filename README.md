@@ -18,6 +18,16 @@ PCCApi es accessible, potente y provee de contenido multimedia
 
 ## Instalación
 ### Requisitos del host
+    PHP 8.1.18 (cli) (built: Apr 14 2023 04:39:46) (NTS)
+Copyright (c) The PHP Group
+Zend Engine v4.1.18, Copyright (c) Zend Technologies
+    with Zend OPcache v8.1.18, Copyright (c), by Zend Technologies
+o compatibles,
+#### Configuración del php.ini
+En la ruta(en caso de usar apache /etc/php/8.1/apache2/php.ini) del php.ini se debe incrementar el tamaño de la subida de archivos para que los audios.mp3 de 10MB puedan subirse al servidor, modifique los valores preterminados por los siguientes
+upload_max_filesize = 10M
+post_max_size = 10M
+
 ### Instalación del proyecto en de
 
 ## vulnerabilidades de seguridad
