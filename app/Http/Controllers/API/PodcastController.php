@@ -65,11 +65,12 @@ class PodcastController extends BaseController
     //metodo que crea un nuevo podcast 
     public function create(Request $request)
     {
+
         try{
             $validator = Validator::make($request->all(), [
                 'title' => 'required|string',
                 'description' => 'required|string',
-                'podcast' => 'required|file|mimes:mp3',
+                'podcast' => 'required|file|mimes:audio/mp3,mpga,mp3,wav|max:10240',
                 'projectName' => 'required|string',
                 'banner' => 'required|file|mimes:jpeg,png,jpg,gif',
             ]);
