@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
 
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('description');
             $table->string('link');
             $table->string('banner')->nullable();
