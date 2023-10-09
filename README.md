@@ -28,16 +28,22 @@ o compatibles,
 #### Apache2 
 Server version: Apache/2.4.56 (Debian)
 Server built:   2023-04-02T03:06:01
+#### Composer
+version 2.6.5 2023-10-06 10:11:52
+<a href="https://bahiaxip.com/entrada/instalar-composer-en-debian-10">instalación de composer</a>
+
+#### Mysql
+mysql  Ver 15.1 Distrib 10.11.4-MariaDB, for debian-linux-gnu (x86_64) using  EditLine wrapper
+
 
 #### Configuración del php.ini
 En la ruta(en caso de usar apache /etc/php/8.1/apache2/php.ini) del php.ini se debe incrementar el tamaño de la subida de archivos para que los audios.mp3 de 10MB puedan subirse al servidor, modifique los valores preterminados por los siguientes
 upload_max_filesize = 10M
 post_max_size = 10M
 
-### Instalación de nvm
 
 
-## vulnerabilidades de seguridad
+
 
 si descubres alguna vulnerabilidad en pccApi, por favor envía un email a [optt.itudes@gmail.com](mailto:optt.itudes@gmail.com). 
 
