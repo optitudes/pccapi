@@ -41,6 +41,7 @@ En la ruta(en caso de usar apache /etc/php/8.1/apache2/php.ini) del php.ini se d
 upload_max_filesize = 10M
 post_max_size = 10M
 
+## ejecucion del proyecto
 Una vez instalados dichos requisitos, en la raiz del proyecto se debe ejecutar
 composer install
 para instalar las dependencias del proyecto laravel, para correr el proyecto en localhost se ejecuta php artisan serve 
