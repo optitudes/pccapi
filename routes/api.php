@@ -138,6 +138,7 @@ Route::group([
 ], function ($router) {
 
 
+        Route::get('/getByInteractivePictureId/{pictureId}',[InteractivePictureQuestionAnswerController::class,'getByInteractivePictureId']);
 //rutas que requieren autenticacion por token bearer
     Route::group([
         'middleware' => 'auth:sanctum'

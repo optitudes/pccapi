@@ -41,5 +41,21 @@ class InteractivePictureQuestionAnswerController extends BaseController
              return $this->sendError('Ocurrio un error al obtener los proyectos');
          }
      }
+     public function getByInteractivePictureId(Request $request, int $pictureId){
+        try{
+            $interactivePicture = InteractivePicture::find($pictureId);
 
+            if( !$interactivePicture ){
+               return $this->sendError('Ocurrio un error al obtener las respuestas');
+            }
+
+            $data = InteractivePictureQuestionAnswer::with('author:email,name')
+                ->whereIn('question_id', $interactivePicture->questions->pluck('id'))
+                ->get();
+
+            return $this->sendResponse($data, 'Respuestas obtenidas con exito');
+        }catch(Exception $e){
+            return $this->sendError('Ocurrio un error al obtener la imagen');
+        }
+     }
 }
