@@ -8,7 +8,8 @@ use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\VideoController;
 use App\Http\Controllers\API\PictureController;
 use App\Http\Controllers\API\PodcastController;
-
+use App\Http\Controllers\API\InteractivePictureController;
+use \App\Http\Controllers\API\InteractivePictureQuestionAnswerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -106,6 +107,43 @@ Route::group([
   Route::post('/remove',[PictureController::class,'remove']);
 
   });
+
+});
+
+//rutas asociadas a las consultas relacionadas a imagenes
+Route::group([
+    'prefix' => 'interactive_picture'
+], function ($router) {
+
+    Route::get('recentlyPosted', [InteractivePictureController::class,'getRecentlyPosted']);
+    Route::get('/search/{word}',[InteractivePictureController::class,'searchPictures']);
+    Route::get('/get/{id}',[InteractivePictureController::class,'getAvailablePicture']);
+    Route::get('/getByProject/{id}',[InteractivePictureController::class,'getAvailablePicturesByProject']);
+
+//rutas que requieren autenticacion por token bearer
+    Route::group([
+        'middleware' => 'auth:sanctum'
+    ], function ($router) {
+
+        Route::post('/create',[InteractivePictureController::class,'create']);
+        Route::post('/edit',[InteractivePictureController::class,'edit']);
+        Route::post('/remove',[InteractivePictureController::class,'remove']);
+
+    });
+
+});
+//rutas asociadas a las respuestas a una pregunta de imagen
+Route::group([
+    'prefix' => 'interactive_picture_answers'
+], function ($router) {
+
+
+//rutas que requieren autenticacion por token bearer
+    Route::group([
+        'middleware' => 'auth:sanctum'
+    ], function ($router) {
+        Route::post('/create',[InteractivePictureQuestionAnswerController::class,'create']);
+    });
 
 });
 //rutas asociadas a las consultas relacionadas a podcast
